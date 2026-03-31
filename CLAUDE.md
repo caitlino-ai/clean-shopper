@@ -33,3 +33,7 @@ See /docs/component-spec.md for defined components. Use existing components befo
 
 ## Build Plan
 See /docs/build-plan.md for the current phase breakdown. We are building phase by phase — do not jump ahead.
+
+## References
+- Project context skill: /.claude/skills/project-context/SKILL.md — generates a structured project context document from any project input
+- Prompt optimizer skill: /.claude/skills/prompt-optimizer/SKILL.md — Use /prompt-optimizer to evaluate and refine instructions before sending them
