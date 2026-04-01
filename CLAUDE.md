@@ -37,3 +37,4 @@ See /docs/build-plan.md for the current phase breakdown. We are building phase b
 ## References
 - Project context skill: /.claude/skills/project-context/SKILL.md — generates a structured project context document from any project input
 - Prompt optimizer skill: /.claude/skills/prompt-optimizer/SKILL.md — Use /prompt-optimizer to evaluate and refine instructions before sending them
+- Design system generator skill: /.claude/skills/design-system-generator/SKILL.md — Use /design-system-generator to run a brand interview and produce an HTML visual style guide and /docs/design-system.md spec
