@@ -15,6 +15,7 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 
 ## Conventions
 - Components: PascalCase filenames, one component per file, lives in /src/components/
+- Components: Always check /docs/component-spec.md before building any UI element. If an existing component covers the use case, use it. Only create a new component if no spec covers the pattern, and add the new component to component-spec.md before moving on.
 - Utility functions: camelCase, lives in /src/lib/
 - API calls: all external API calls through /src/lib/api/, never inline in components
 - Styling: Tailwind only. No inline styles. No CSS modules.
@@ -30,6 +31,7 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 
 ## Component Library
 See /docs/component-spec.md for defined components. Use existing components before creating new ones.
+Defined components: ProductCard, SafetyBadge, SearchBar, CategoryTag, NavBar, Button, InputField, EmptyState.
 
 ## Build Plan
 See /docs/build-plan.md for the current phase breakdown. We are building phase by phase — do not jump ahead.
@@ -38,3 +40,4 @@ See /docs/build-plan.md for the current phase breakdown. We are building phase b
 - Project context skill: /.claude/skills/project-context/SKILL.md — generates a structured project context document from any project input
 - Prompt optimizer skill: /.claude/skills/prompt-optimizer/SKILL.md — Use /prompt-optimizer to evaluate and refine instructions before sending them
 - Design system generator skill: /.claude/skills/design-system-generator/SKILL.md — Use /design-system-generator to run a brand interview and produce an HTML visual style guide and /docs/design-system.md spec
+- Component spec: See /docs/component-spec.md — use existing components before creating new ones. Follow the spec for props, states, and visual structure.
