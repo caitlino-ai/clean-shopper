@@ -1,37 +1,29 @@
-const SCORE_CONFIG = {
-  clean: {
-    label: 'Clean',
-    className: 'bg-success/10 text-success',
-  },
-  caution: {
-    label: 'Caution',
-    className: 'bg-warning/10 text-warning',
-  },
-  avoid: {
-    label: 'Avoid',
-    className: 'bg-error/10 text-error',
-  },
-}
+import SafetyBadge from './SafetyBadge'
+import CategoryTag from './CategoryTag'
 
-export default function ProductCard({ name, score, category, description }) {
-  const badge = SCORE_CONFIG[score]
-
+export default function ProductCard({ name, score, category, description, onSave, isSaved, onClick }) {
   return (
-    <div className="bg-secondary rounded-lg shadow-sm p-lg flex flex-col gap-md">
-      <div className="flex items-start justify-between gap-md">
-        <h3 className="text-h3 text-neutral-900 leading-snug">{name}</h3>
-        <span
-          className={`shrink-0 text-small font-semibold px-sm py-xs rounded-full ${badge.className}`}
-        >
-          {badge.label}
-        </span>
+    <div
+      onClick={onClick}
+      className="bg-secondary rounded-lg shadow-sm hover:shadow-md transition-shadow p-space-lg flex flex-col gap-space-md cursor-pointer"
+    >
+      <div className="flex items-start justify-between gap-space-md">
+        <h3 className="text-h3 text-neutral-900">{name}</h3>
+        <SafetyBadge score={score} size="sm" />
       </div>
 
-      <span className="self-start text-small text-neutral-600 bg-neutral-200 px-sm py-xs rounded-sm">
-        {category}
-      </span>
+      <CategoryTag label={category} />
 
       <p className="text-body text-neutral-600">{description}</p>
+
+      {onSave && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onSave() }}
+          className="self-start text-small font-semibold text-primary hover:text-primary-dark transition-colors"
+        >
+          {isSaved ? 'Saved' : 'Save'}
+        </button>
+      )}
     </div>
   )
 }
