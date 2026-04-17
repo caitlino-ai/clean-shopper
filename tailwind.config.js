@@ -41,15 +41,17 @@ export default {
         small: ['14px', { lineHeight: '1.5', fontWeight: '400' }],
         micro: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
       },
+      // Prefixed with space- to avoid overriding Tailwind's built-in size suffixes
+      // (max-w-sm, max-w-lg, etc. would otherwise resolve to our values)
       spacing: {
-        xs: '4px',
-        sm: '8px',
-        md: '16px',
-        lg: '24px',
-        xl: '32px',
-        '2xl': '48px',
-        '3xl': '64px',
-        '4xl': '96px',
+        'space-xs': '4px',
+        'space-sm': '8px',
+        'space-md': '16px',
+        'space-lg': '24px',
+        'space-xl': '32px',
+        'space-2xl': '48px',
+        'space-3xl': '64px',
+        'space-4xl': '96px',
       },
       borderRadius: {
         sm: '4px',

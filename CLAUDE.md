@@ -16,6 +16,7 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 ## Conventions
 - Components: PascalCase filenames, one component per file, lives in /src/components/
 - Components: Always check /docs/component-spec.md before building any UI element. If an existing component covers the use case, use it. Only create a new component if no spec covers the pattern, and add the new component to component-spec.md before moving on.
+- File placement: Shared components that are reused across screens belong in src/components/. Files specific to one screen (components, hooks, helpers) belong in that screen's folder under src/features/. Do not mix the two.
 - Utility functions: camelCase, lives in /src/lib/
 - API calls: all external API calls through /src/lib/api/, never inline in components
 - Styling: Tailwind only. No inline styles. No CSS modules.

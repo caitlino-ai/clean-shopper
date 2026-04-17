@@ -48,15 +48,15 @@
   --text-micro--line-height: 1.4;
   --text-micro--font-weight: 400;
 
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
-  --spacing-3xl: 64px;
-  --spacing-4xl: 96px;
+  /* Spacing — prefixed with space- to avoid colliding with Tailwind's built-in size suffixes */
+  --spacing-space-xs: 4px;
+  --spacing-space-sm: 8px;
+  --spacing-space-md: 16px;
+  --spacing-space-lg: 24px;
+  --spacing-space-xl: 32px;
+  --spacing-space-2xl: 48px;
+  --spacing-space-3xl: 64px;
+  --spacing-space-4xl: 96px;
 
   /* Border Radius */
   --radius-sm: 4px;
@@ -70,7 +70,6 @@
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
 }
 
-/* CSS custom properties for direct var() usage */
 :root {
   --color-primary: #3A9D7C;
   --color-primary-light: #62BA98;
