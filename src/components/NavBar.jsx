@@ -4,7 +4,7 @@ const NAV_LINKS = [
   { label: 'Shopping List', page: 'list' },
 ]
 
-export default function NavBar({ activePage, onNavigate }) {
+export default function NavBar({ activePage, onNavigate, onSignOut }) {
   return (
     <nav className="bg-neutral-50 border-b border-neutral-200 px-space-xl py-space-md flex items-center justify-between gap-space-xl">
       <span className="text-h4 text-primary font-semibold whitespace-nowrap shrink-0">
@@ -29,10 +29,10 @@ export default function NavBar({ activePage, onNavigate }) {
           )
         })}
         <button
-          onClick={() => onNavigate?.('signin')}
-          className="text-body whitespace-nowrap font-semibold text-primary hover:text-primary-dark transition-colors"
+          onClick={onSignOut}
+          className="text-body whitespace-nowrap text-neutral-600 hover:text-neutral-900 transition-colors"
         >
-          Sign in
+          Sign out
         </button>
       </div>
     </nav>

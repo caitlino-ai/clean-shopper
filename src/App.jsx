@@ -7,7 +7,7 @@ import SignUpPage from './features/auth/SignUpPage'
 import { supabase } from './lib/supabase'
 
 export default function App() {
-  const [session, setSession] = useState(true) // TODO: remove — bypasses auth for testing
+  const [session, setSession] = useState(undefined) // undefined = loading, null = signed out
   const [page, setPage] = useState('library')
   const [authPage, setAuthPage] = useState('signin')
 
@@ -44,10 +44,15 @@ export default function App() {
     )
   }
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    setAuthPage('signin')
+  }
+
   // Signed in — show main app
   return (
     <div className="min-h-screen bg-neutral-50">
-      <NavBar activePage={page} onNavigate={setPage} />
+      <NavBar activePage={page} onNavigate={setPage} onSignOut={handleSignOut} />
       {page === 'library' && <BrowsePage />}
       {page === 'search' && <SearchPage />}
     </div>
