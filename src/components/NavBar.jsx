@@ -28,6 +28,12 @@ export default function NavBar({ activePage, onNavigate }) {
             </button>
           )
         })}
+        <button
+          onClick={() => onNavigate?.('signin')}
+          className="text-body whitespace-nowrap font-semibold text-primary hover:text-primary-dark transition-colors"
+        >
+          Sign in
+        </button>
       </div>
     </nav>
   )
