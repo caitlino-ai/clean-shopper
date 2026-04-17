@@ -1,58 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryTag from '../../components/CategoryTag'
 import EmptyState from '../../components/EmptyState'
+import { supabase } from '../../lib/supabase'
 
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "Dr. Bronner's Pure Castile Soap",
-    score: 'clean',
-    category: 'Personal Care',
-    description: 'Organic, fair trade certified. Free from synthetic preservatives, detergents, and fragrances.',
-  },
-  {
-    id: 2,
-    name: 'Aveeno Daily Moisturizing Lotion',
-    score: 'caution',
-    category: 'Personal Care',
-    description: 'Contains dimethicone and fragrance flagged for moderate skin concern by EWG.',
-  },
-  {
-    id: 3,
-    name: 'Method All-Purpose Cleaner',
-    score: 'clean',
-    category: 'Home Cleaning',
-    description: 'Plant-based surfactants, no bleach or synthetic dyes. Biodegradable formula.',
-  },
-  {
-    id: 4,
-    name: 'Clorox Disinfecting Wipes',
-    score: 'avoid',
-    category: 'Home Cleaning',
-    description: 'Contains quaternary ammonium compounds linked to respiratory irritation and aquatic toxicity.',
-  },
-  {
-    id: 5,
-    name: "Burt's Bees Baby Shampoo",
-    score: 'clean',
-    category: 'Baby Care',
-    description: 'Tear-free, pediatrician tested. Free from parabens, phthalates, and synthetic fragrances.',
-  },
-  {
-    id: 6,
-    name: "Johnson's Baby Powder",
-    score: 'caution',
-    category: 'Baby Care',
-    description: 'Talc-based formula with ongoing regulatory review. Fragrance listed as a potential irritant.',
-  },
-]
-
-const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care']
+const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
 
 export default function BrowsePage() {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
   const [saved, setSaved] = useState([])
   const [activeCategory, setActiveCategory] = useState('All')
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const { data, error } = await supabase.from('Products').select('*').order('name')
+      if (!error) setProducts(data)
+      setLoading(false)
+    }
+    fetchProducts()
+  }, [])
 
   const toggleSave = (id) => {
     setSaved((prev) =>
@@ -62,8 +29,8 @@ export default function BrowsePage() {
 
   const filtered =
     activeCategory === 'All'
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.category === activeCategory)
+      ? products
+      : products.filter((p) => p.category === activeCategory)
 
   return (
     <div className="max-w-[1100px] mx-auto px-space-xl py-space-3xl">
@@ -86,7 +53,9 @@ export default function BrowsePage() {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
+      {loading ? (
+        <p className="text-body text-neutral-600">Loading products…</p>
+      ) : filtered.length === 0 ? (
         <EmptyState
           headline="No products in this category"
           description="Try selecting a different category above."
@@ -97,7 +66,8 @@ export default function BrowsePage() {
             <ProductCard
               key={product.id}
               name={product.name}
-              score={product.score}
+              brand={product.brand}
+              score={product.safety_score}
               category={product.category}
               description={product.description}
               isSaved={saved.includes(product.id)}
