@@ -6,10 +6,9 @@ import { supabase } from '../../lib/supabase'
 
 const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
 
-export default function BrowsePage() {
+export default function BrowsePage({ savedIds = [], onToggleSave }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [saved, setSaved] = useState([])
   const [activeCategory, setActiveCategory] = useState('All')
 
   useEffect(() => {
@@ -20,12 +19,6 @@ export default function BrowsePage() {
     }
     fetchProducts()
   }, [])
-
-  const toggleSave = (id) => {
-    setSaved((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    )
-  }
 
   const filtered =
     activeCategory === 'All'
@@ -70,8 +63,8 @@ export default function BrowsePage() {
               score={product.safety_score}
               category={product.category}
               description={product.description}
-              isSaved={saved.includes(product.id)}
-              onSave={() => toggleSave(product.id)}
+              isSaved={savedIds.includes(product.id)}
+              onSave={() => onToggleSave(product.id)}
             />
           ))}
         </div>

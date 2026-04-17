@@ -5,6 +5,7 @@ import SearchPage from './features/search/SearchPage'
 import SignInPage from './features/auth/SignInPage'
 import SignUpPage from './features/auth/SignUpPage'
 import { supabase } from './lib/supabase'
+import { useSavedProducts } from './lib/useSavedProducts'
 
 export default function App() {
   const [session, setSession] = useState(undefined) // undefined = loading, null = signed out
@@ -44,6 +45,8 @@ export default function App() {
     )
   }
 
+  const { savedIds, toggleSave } = useSavedProducts(session?.user?.id)
+
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     setAuthPage('signin')
@@ -53,8 +56,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-neutral-50">
       <NavBar activePage={page} onNavigate={setPage} onSignOut={handleSignOut} />
-      {page === 'library' && <BrowsePage />}
-      {page === 'search' && <SearchPage />}
+      {page === 'library' && <BrowsePage savedIds={savedIds} onToggleSave={toggleSave} />}
+      {page === 'search' && <SearchPage savedIds={savedIds} onToggleSave={toggleSave} />}
     </div>
   )
 }

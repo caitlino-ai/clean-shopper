@@ -4,12 +4,11 @@ import ProductCard from '../../components/ProductCard'
 import EmptyState from '../../components/EmptyState'
 import { supabase } from '../../lib/supabase'
 
-export default function SearchPage() {
+export default function SearchPage({ savedIds = [], onToggleSave }) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [hasSearched, setHasSearched] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [saved, setSaved] = useState([])
 
   const handleSearch = async (value) => {
     const trimmed = value.trim()
@@ -35,12 +34,6 @@ export default function SearchPage() {
     }
 
     setIsLoading(false)
-  }
-
-  const toggleSave = (id) => {
-    setSaved((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    )
   }
 
   return (
@@ -83,8 +76,8 @@ export default function SearchPage() {
                   score={product.safety_score}
                   category={product.category}
                   description={product.description}
-                  isSaved={saved.includes(product.id)}
-                  onSave={() => toggleSave(product.id)}
+                  isSaved={savedIds.includes(product.id)}
+                  onSave={() => onToggleSave(product.id)}
                 />
               ))}
             </div>
